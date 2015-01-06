@@ -33,15 +33,38 @@ module.exports = function(sequelize, DataTypes) {
         },
         associate: function(models) {
             User.hasMany(models.Project, {
+                foreignKey: 'ProjectCuratorId',               
+                foreignKeyConstraint: true
+            });
+
+            User.hasMany(models.Project, {
+                foreignKey: 'ProjectClientId',              
+                foreignKeyConstraint: true
+            });
+
+            User.hasMany(models.Task, {
+                foreignKey: 'TaskExecutorId',              
+                foreignKeyConstraint: true
+            });
+
+            User.hasMany(models.Post, {
+                            
+                foreignKeyConstraint: true
+            });
+
+            User.hasMany(models.Stage, {
+                foreignKey: 'StageCuratorId',              
+                foreignKeyConstraint: true
+            });
+
+
+
+            /*User.hasMany(models.Project, {
                 as: 'Project',
                 through: 'projects_employees',
                 foreignKeyConstraint: true
             });
-            User.hasMany(models.Project, {
-                as: 'Project',
-                through: 'projects_curators',
-                foreignKeyConstraint: true
-            });
+            
             User.hasMany(models.Project, {
                 as: 'Clients',
                 through: 'projects_clients',
@@ -65,7 +88,7 @@ module.exports = function(sequelize, DataTypes) {
             });
             User.belongsTo(models.Company, {
                 foreignKeyConstraint: true
-            });
+            });*/
         }
     });
 

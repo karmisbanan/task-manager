@@ -7,9 +7,16 @@ module.exports = function(sequelize, DataTypes) {
         },
     }, {
         associate: function(models) {
-            StatusDir.belongsTo(models.Company, {
+            StatusDir.hasMany(models.Stage, {
                 foreignKeyConstraint: true 
             });
+            StatusDir.hasMany(models.Task, {
+                foreignKeyConstraint: true 
+            });
+
+            /*StatusDir.belongsTo(models.Company, {
+                foreignKeyConstraint: true 
+            });*/
         }
     });
 

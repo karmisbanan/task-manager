@@ -1,8 +1,8 @@
 module.exports = {
     // This is your MYSQL Database configuration
     db: {
-        name: "leviafan",
-        password: "zoroastr19550605",
+        name: "crm_db",
+        password: "root",
         username: "root"
     },
     app: {

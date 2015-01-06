@@ -7,9 +7,12 @@ module.exports = function(sequelize, DataTypes) {
         },
     }, {
         associate: function(models) {
-            RoleDir.belongsTo(models.Company, {
+            RoleDir.hasMany(models.User, {
                 foreignKeyConstraint: true 
             });
+            /*RoleDir.belongsTo(models.Company, {
+                foreignKeyConstraint: true 
+            });*/
         }
     });
 

@@ -15,12 +15,40 @@ module.exports = function(sequelize, DataTypes) {
         },
     }, {
         associate: function(models) {
-            Stage.belongsTo(models.StatusDir, {
+            Stage.hasMany(models.Task,{
+                foreignKeyConstraint: true
+            });
+
+            //перенести  в stageDir если есть фиксированный регламент выполнения этапов
+            Stage.hasMany(models.DepStage, {
+                foreignKey: 'StageId',
+                foreignKeyConstraint: true
+            });
+            
+            //перенести  в stageDir если есть фиксированный регламент выполнения этапов
+            Stage.hasMany(models.DepStage, {
+                comment: "Должнен быть закончен",
+                foreignKey: 'DepStageId',
+                foreignKeyConstraint: true
+            });
+
+            /*Stage.belongsTo(models.StageDir, {
+                foreignKeyConstraint: true
+            });*/
+
+
+
+            /*Stage.belongsTo(models.Project,{
+                foreignKeyConstraint: true
+            });*/
+
+
+            /*Stage.belongsTo(models.StatusDir, {
                 foreignKeyConstraint: true
             });
             Stage.belongsTo(models.StageDir, {
                 foreignKeyConstraint: true
-            });
+            });*/
         }
     });
 

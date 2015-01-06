@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         },
     }, {
         associate: function(models) {
-            PostDir.belongsTo(models.Company, {
+            PostDir.hasMany(models.Post, {
                 foreignKeyConstraint: true 
             });
         }

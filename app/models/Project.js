@@ -9,6 +9,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.TEXT,
             comment: "Описание проекта"
         },
+        budget: {
+            type: DataTypes.DECIMAL(10, 2),
+            comment: "Бюджет"
+        },
         dateStart: {
             type: DataTypes.DATE,
             comment: "Дата начала проекта"
@@ -21,10 +25,23 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: true,
         // paranoid: true,
         associate: function(models) {
-            Project.belongsTo(models.Stage, {
+            Project.hasMany(models.Stage, {
                 foreignKeyConstraint: true
             });
-            Project.belongsTo(models.Company, {
+
+            Project.hasMany(models.Post, {
+                foreignKeyConstraint: true
+            });
+            /*Project.hasMany(models.Stage, {
+                foreignKeyConstraint: true
+            });*/
+
+            
+
+            /*Project.belongsTo(models.Stage, {
+                foreignKeyConstraint: true
+            });*/
+            /*Project.belongsTo(models.Company, {
                 as: 'Company',
                 foreignKeyConstraint: true
             });
@@ -43,7 +60,7 @@ module.exports = function(sequelize, DataTypes) {
                 through: 'projects_clients',
                 foreignKeyConstraint: true
             });
-
+*/
         }
     });
 
