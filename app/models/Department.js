@@ -9,7 +9,16 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: true,
         paranoid: true,
         associate: function(models) {
-            Department.hasMany(models.StageDir, {
+            /*Department.hasMany(models.StageDir, {
+                foreignKeyConstraint: true
+            });*/
+
+            Department.hasMany(models.Department, {
+                foreignKey: "ParentDepartmentId",
+                foreignKeyConstraint: true
+            });
+
+            Department.hasMany(models.StageExecutors,{
                 foreignKeyConstraint: true
             });
             

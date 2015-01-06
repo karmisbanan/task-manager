@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
                 foreignKeyConstraint: true
             });
 
+            StageDir.hasMany(models.StageExecutors,{
+                foreignKeyConstraint: true
+            });
+
             /*StageDir.belongsTo(models.Company, {
                 foreignKeyConstraint: true 
             });*/
