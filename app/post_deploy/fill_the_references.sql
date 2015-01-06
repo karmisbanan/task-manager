@@ -1,6 +1,5 @@
 /*заполнение справочника ролей roledirs*/
 INSERT INTO `crm_db`.`roledirs` (`title`, `createdAt`, `updatedAt`) VALUES ('developer', now(), now());
-
 INSERT INTO `crm_db`.`roledirs` (`title`, `createdAt`, `updatedAt`) VALUES ('employee', now(), now());
 INSERT INTO `crm_db`.`roledirs` (`title`, `createdAt`, `updatedAt`) VALUES ('customer', now(), now());
 
@@ -8,6 +7,11 @@ INSERT INTO `crm_db`.`roledirs` (`title`, `createdAt`, `updatedAt`) VALUES ('cus
 INSERT INTO `crm_db`.`statusdirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Не начата', now(), now());
 INSERT INTO `crm_db`.`statusdirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Выполняется', now(), now());
 INSERT INTO `crm_db`.`statusdirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Выполнена', now(), now());
+
+/* заполнение справочника приоритетов задач prioritydirs*/
+INSERT INTO `crm_db`.`prioritydirs` (`id`, `title`, `createdAt`, `updatedAt`) VALUES (1, 'Высокий', now(), now());
+INSERT INTO `crm_db`.`prioritydirs` (`id`, `title`, `createdAt`, `updatedAt`) VALUES (2, 'Средний', now(), now());
+INSERT INTO `crm_db`.`prioritydirs` (`id`, `title`, `createdAt`, `updatedAt`) VALUES (3, 'Низкий', now(), now());
 
 
 /* заполнение справочника этапов stagedirs*/ 

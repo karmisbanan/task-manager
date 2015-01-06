@@ -9,10 +9,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.TEXT,
             comment: "Описание задачи"
         },
-        priority: {
-            type: DataTypes.STRING,
-            comment: "Приоритет задачи"
-        },
         runtime: {
             type: DataTypes.DATE,
             comment: "Время на решение задачи"
