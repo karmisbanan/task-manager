@@ -32,6 +32,21 @@ module.exports = function(sequelize, DataTypes) {
             Project.hasMany(models.Post, {
                 foreignKeyConstraint: true
             });
+
+            Project.belongsTo(models.User, {
+                foreignKey: 'ProjectCuratorId',               
+                foreignKeyConstraint: true
+            });
+
+            Project.belongsTo(models.User, {
+                foreignKey: 'ProjectClientId',              
+                foreignKeyConstraint: true
+            });
+
+            Project.belongsTo(models.AbstractStage, {
+                foreignKey:'CurrentProgressAbsStId',
+                foreignKeyConstraint: true
+            });
             /*Project.hasMany(models.Stage, {
                 foreignKeyConstraint: true
             });*/

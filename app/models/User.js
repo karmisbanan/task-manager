@@ -57,6 +57,10 @@ module.exports = function(sequelize, DataTypes) {
                 foreignKeyConstraint: true
             });
 
+            User.belongsTo(models.RoleDir, {
+                foreignKeyConstraint: true  
+            });
+
 
 
             /*User.hasMany(models.Project, {

@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
             });
 
             AbstractStage.hasMany(models.Project, {
+                foreignKey:'CurrentProgressAbsStId',
                 foreignKeyConstraint: true
             });
             

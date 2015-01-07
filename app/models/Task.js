@@ -37,6 +37,23 @@ module.exports = function(sequelize, DataTypes) {
                 foreignKey: 'DepTaskId',
                 foreignKeyConstraint: true
             });
+
+            Task.belongsTo(models.PriorityDir, {
+                foreignKeyConstraint: true 
+            });
+
+            Task.belongsTo(models.Stage,{
+                foreignKeyConstraint: true
+            });
+
+            Task.belongsTo(models.StatusDir, {
+                foreignKeyConstraint: true 
+            });
+
+            Task.belongsTo(models.User, {
+                foreignKey: 'TaskExecutorId',              
+                foreignKeyConstraint: true
+            });
             /*
             */
 

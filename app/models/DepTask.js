@@ -6,7 +6,16 @@ module.exports = function(sequelize, DataTypes) {
         paranoid: true,
         associate: function(models) {
             
-            
+            DepTask.belongsTo(models.Task, {
+                foreignKey: 'TaskId',
+                foreignKeyConstraint: true
+            });
+
+            DepTask.belongsTo(models.Task, {
+                comment: "Должна быть выполнена",
+                foreignKey: 'DepTaskId',
+                foreignKeyConstraint: true
+            });
             /*DepTask.hasMany(models.User, {
                 as: 'Employees',
                 through: 'deptasks_employees',

@@ -5,8 +5,13 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: true,
         paranoid: true,
         associate: function(models) {
+            StageExecutors.belongsTo(models.Department,{
+                foreignKeyConstraint: true
+            });
             
-            
+            StageExecutors.belongsTo(models.StageDir,{
+                foreignKeyConstraint: true
+            });
             /*DepTask.hasMany(models.User, {
                 as: 'Employees',
                 through: 'deptasks_employees',

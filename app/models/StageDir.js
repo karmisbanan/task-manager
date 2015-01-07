@@ -15,6 +15,9 @@ module.exports = function(sequelize, DataTypes) {
                 foreignKeyConstraint: true
             });
 
+            StageDir.belongsTo(models.AbstractStage, {
+                foreignKeyConstraint: true
+            });
             /*StageDir.belongsTo(models.Company, {
                 foreignKeyConstraint: true 
             });*/

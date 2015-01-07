@@ -2,6 +2,7 @@
 var users       = require('../app/controllers/users');
 var articles    = require('../app/controllers/articles');
 var index       = require('../app/controllers/index');
+var stages = require('../app/controllers/stages');
 
 exports.init = function(app, passport, auth) {
 
@@ -70,5 +71,8 @@ exports.init = function(app, passport, auth) {
 
     // Home route
     app.get('/', index.render);
+
+    //тестовый путь для пробы 
+    app.get('/stages',stages.allStages);
 
 };

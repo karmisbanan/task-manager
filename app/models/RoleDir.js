@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         associate: function(models) {
             RoleDir.hasMany(models.User, {
-                foreignKeyConstraint: true 
+                foreignKeyConstraint: true  
             });
             /*RoleDir.belongsTo(models.Company, {
                 foreignKeyConstraint: true 

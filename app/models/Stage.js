@@ -28,6 +28,23 @@ module.exports = function(sequelize, DataTypes) {
                 foreignKeyConstraint: true
             });
 
+            Stage.belongsTo(models.Project,{
+                foreignKeyConstraint: true
+            });
+
+            Stage.belongsTo(models.StageDir,{
+                foreignKeyConstraint: true
+            });
+
+            Stage.belongsTo(models.StatusDir, {
+                foreignKeyConstraint: true 
+            });
+
+            Stage.belongsTo(models.User, {
+                foreignKey: 'StageCuratorId',              
+                foreignKeyConstraint: true
+            });
+
             /*Stage.belongsTo(models.StageDir, {
                 foreignKeyConstraint: true
             });*/

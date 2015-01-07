@@ -1,5 +1,5 @@
-// функции дефолтных значений полей
-/*
+/* функции дефолтных значений полей
+
 DROP function IF EXISTS `createdAt`;
 DELIMITER $$
 CREATE FUNCTION `createdAt` ()

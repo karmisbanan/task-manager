@@ -4,6 +4,16 @@ module.exports = function(sequelize, DataTypes) {
         
     }, {
         associate: function(models) {
+            Post.belongsTo(models.PostDir, {
+                foreignKeyConstraint: true 
+            });
+            Post.belongsTo(models.Project, {
+                foreignKeyConstraint: true
+            });
+            Post.belongsTo(models.User, {
+                            
+                foreignKeyConstraint: true
+            });
             /*PostDir.belongsTo(models.Company, {
                 foreignKeyConstraint: true 
             });*/
