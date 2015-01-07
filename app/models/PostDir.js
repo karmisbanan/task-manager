@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //словарь должностей
     var PostDir = sequelize.define('PostDir', {
         title: {
             type: DataTypes.STRING,

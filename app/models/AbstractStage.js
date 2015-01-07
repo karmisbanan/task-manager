@@ -1,11 +1,21 @@
 module.exports = function(sequelize, DataTypes) {
-    //подэтапы исполняются определенными отделами
-    var StageExecutors = sequelize.define('StageExecutors', {
+    //постоянные большие этапы: предпрод, прод, постпрод
+    var AbstractStage = sequelize.define('AbstractStage', {
+        title: {
+            type: DataTypes.STRING,
+            comment: "Название этапа"
+        }
     }, {
         timestamps: true,
         paranoid: true,
         associate: function(models) {
-            
+            AbstractStage.hasMany(models.StageDir, {
+                foreignKeyConstraint: true
+            });
+
+            AbstractStage.hasMany(models.Project, {
+                foreignKeyConstraint: true
+            });
             
             /*DepTask.hasMany(models.User, {
                 as: 'Employees',
@@ -21,5 +31,5 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    return StageExecutors;
+    return AbstractStage;
 };

@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //зависимость подэтапов 
     var DepStage = sequelize.define('DepStage', {
     }, {
         timestamps: true,

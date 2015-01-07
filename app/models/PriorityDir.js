@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //словарь приоритетов
     var PriorityDir = sequelize.define('PriorityDir', {
         title: {
             type: DataTypes.STRING,

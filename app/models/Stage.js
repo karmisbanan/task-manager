@@ -1,17 +1,13 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //подэтапы на проекте
     var Stage = sequelize.define('Stage', {
-        title: {
-            type: DataTypes.STRING,
-            comment: "Название этапа"
-        },
         dateStart: {
             type: DataTypes.DATE,
-            comment: "Дата начала этапа"
+            comment: "Дата начала подэтапа проекта"
         },
         dateEnd: {
             type: DataTypes.DATE,
-            comment: "Дата окончания этапа"
+            comment: "Дата окончания подэтапа проекта"
         },
     }, {
         associate: function(models) {

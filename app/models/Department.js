@@ -1,9 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //отделы и группы
     var Department = sequelize.define('Department', {
         title: {
             type: DataTypes.STRING,
-            comment: "Название отдела"
+            comment: "Название отдела или группы"
         }
     }, {
         timestamps: true,

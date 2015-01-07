@@ -24,10 +24,9 @@ INSERT INTO `crm_db`.`stages` (`id`,`dateStart`, `dateEnd`, `createdAt`, `update
 
 
 /*задачи*/
-INSERT INTO `crm_db`.`tasks` (`id`,`title`, `description`, `runtime`, `remotelink`, `createdAt`, `updatedAt`, `deletedAt`,`PriorityDirId`, `StageId`, `StatusDirId`, `TaskExecutorId`) VALUES (1,'задача 1', 'описание задачи 1', now(), 'https://docs.google.com/document/d/1UsYzjvmWtC63TGZfYX1LoWuXwRV6PiAtbbs6wKFCFaw/edit', now(), now(), now(), 1, 1, 1, 5);
-INSERT INTO `crm_db`.`tasks` (`id`,`title`, `description`, `runtime`, `remotelink`, `createdAt`, `updatedAt`, `deletedAt`,`PriorityDirId`, `StageId`, `StatusDirId`, `TaskExecutorId`) VALUES (2,'задача 2', 'описание задачи 2', now(), 'https://docs.google.com/document/d/1UsYzjvmWtC63TGZfYX1LoWuXwRV6PiAtbbs6wKFCFaw/edit', now(), now(), now(), 1, 1, 1, 6);
-INSERT INTO `crm_db`.`tasks` (`id`,`title`, `description`, `runtime`, `remotelink`, `createdAt`, `updatedAt`, `deletedAt`,`PriorityDirId`, `StageId`, `StatusDirId`, `TaskExecutorId`) VALUES (3,'задача 3', 'описание задачи 3', now(), 'https://docs.google.com/document/d/1UsYzjvmWtC63TGZfYX1LoWuXwRV6PiAtbbs6wKFCFaw/edit', now(), now(), now(), 1, 1, 1, 6);
-
+INSERT INTO `crm_db`.`tasks` (`id`,`title`, `description`, `dateStart`, `dateEnd`, `remotelink`, `createdAt`, `updatedAt`, `deletedAt`,`PriorityDirId`, `StageId`, `StatusDirId`, `TaskExecutorId`) VALUES (1,'задача 1', 'описание задачи 1', now(),now(), 'https://docs.google.com/document/d/1UsYzjvmWtC63TGZfYX1LoWuXwRV6PiAtbbs6wKFCFaw/edit', now(), now(), now(), 1, 1, 1, 5);
+INSERT INTO `crm_db`.`tasks` (`id`,`title`, `description`, `dateStart`, `dateEnd`, `remotelink`, `createdAt`, `updatedAt`, `deletedAt`,`PriorityDirId`, `StageId`, `StatusDirId`, `TaskExecutorId`) VALUES (2,'задача 2', 'описание задачи 2', now(),now(), 'https://docs.google.com/document/d/1UsYzjvmWtC63TGZfYX1LoWuXwRV6PiAtbbs6wKFCFaw/edit', now(), now(), now(), 1, 1, 1, 6);
+INSERT INTO `crm_db`.`tasks` (`id`,`title`, `description`, `dateStart`, `dateEnd`, `remotelink`, `createdAt`, `updatedAt`, `deletedAt`,`PriorityDirId`, `StageId`, `StatusDirId`, `TaskExecutorId`) VALUES (3,'задача 3', 'описание задачи 3', now(),now(),	'https://docs.google.com/document/d/1UsYzjvmWtC63TGZfYX1LoWuXwRV6PiAtbbs6wKFCFaw/edit', now(), now(), now(), 1, 1, 1, 6);
 
 /*зависимые задачи*/
 INSERT INTO `crm_db`.`deptasks` (`id`,`createdAt`, `updatedAt`, `deletedAt`, `TaskId`, `DepTaskId`) VALUES (1,now(), now(), now(), '1', '2');

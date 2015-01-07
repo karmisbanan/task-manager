@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //проекты
     var Project = sequelize.define('Project', {
         title: {
             type: DataTypes.STRING,

@@ -1,9 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //словарь подэтапов
     var StageDir = sequelize.define('StageDir', {
         title: { 
             type: DataTypes.STRING, 
-            comment: "Название этапа" 
+            comment: "Название подэтапа" 
         },
     }, {
         associate: function(models) {

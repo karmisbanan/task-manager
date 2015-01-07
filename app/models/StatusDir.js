@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //словарь статусов выполнения
     var StatusDir = sequelize.define('StatusDir', {
         title: { 
             type: DataTypes.STRING, 

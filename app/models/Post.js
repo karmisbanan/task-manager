@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+	//должности на определенном проекте
     var Post = sequelize.define('Post', {
         
     }, {

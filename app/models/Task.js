@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //задачи проекта по подэтапу
     var Task = sequelize.define('Task', {
         title: {
             type: DataTypes.STRING,
@@ -9,9 +9,13 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.TEXT,
             comment: "Описание задачи"
         },
-        runtime: {
+        dateStart: {
             type: DataTypes.DATE,
-            comment: "Время на решение задачи"
+            comment: "Дата начала решение задачи"
+        },
+        dateEnd: {
+            type: DataTypes.DATE,
+            comment: "Дата окончания решение задачи"
         },
         remotelink: {
             type: DataTypes.STRING,

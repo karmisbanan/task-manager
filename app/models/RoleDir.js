@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //словарь ролей
     var RoleDir = sequelize.define('RoleDir', {
         title: { 
             type: DataTypes.STRING, 

@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-
+    //зависимость задач 
     var DepTask = sequelize.define('DepTask', {
     }, {
         timestamps: true,

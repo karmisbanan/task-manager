@@ -1,3 +1,32 @@
+// функции дефолтных значений полей
+/*
+DROP function IF EXISTS `createdAt`;
+DELIMITER $$
+CREATE FUNCTION `createdAt` ()
+RETURNS datetime
+BEGIN
+RETURN NOW();
+END;
+
+DROP function IF EXISTS `updatedAt`;
+DELIMITER $$
+CREATE FUNCTION `updatedAt` ()
+RETURNS datetime
+BEGIN
+RETURN NULL;
+END;
+
+DROP function IF EXISTS `deletedAt`;
+DELIMITER $$
+CREATE FUNCTION `deletedAt` ()
+RETURNS datetime
+BEGIN
+
+RETURN NULL;
+END;
+*/
+
+
 /*заполнение справочника ролей roledirs*/
 INSERT INTO `crm_db`.`roledirs` (`title`, `createdAt`, `updatedAt`) VALUES ('developer', now(), now());
 INSERT INTO `crm_db`.`roledirs` (`title`, `createdAt`, `updatedAt`) VALUES ('employee', now(), now());
@@ -13,48 +42,55 @@ INSERT INTO `crm_db`.`prioritydirs` (`id`, `title`, `createdAt`, `updatedAt`) VA
 INSERT INTO `crm_db`.`prioritydirs` (`id`, `title`, `createdAt`, `updatedAt`) VALUES (2, 'Средний', now(), now());
 INSERT INTO `crm_db`.`prioritydirs` (`id`, `title`, `createdAt`, `updatedAt`) VALUES (3, 'Низкий', now(), now());
 
+/* заполнение справочника больших этапов abstractstages*/
+INSERT INTO `crm_db`.`abstractstages` (`id`, `title`, `createdAt`, `updatedAt`, `deletedAt`) VALUES (1, 'Предпродакшн', now(), now(), now());
+INSERT INTO `crm_db`.`abstractstages` (`id`, `title`, `createdAt`, `updatedAt`, `deletedAt`) VALUES (2, 'Продакшн', now(), now(), now());
+INSERT INTO `crm_db`.`abstractstages` (`id`, `title`, `createdAt`, `updatedAt`, `deletedAt`) VALUES (3, 'Постпродакшн', now(), now(), now());
+INSERT INTO `crm_db`.`abstractstages` (`id`, `title`, `createdAt`, `updatedAt`, `deletedAt`) VALUES (4, 'Сдача проекта', now(), now(), now());
+INSERT INTO `crm_db`.`abstractstages` (`id`, `title`, `createdAt`, `updatedAt`, `deletedAt`) VALUES (5, 'Завершен', now(), now(), now());
 
-/* заполнение справочника этапов stagedirs*/ 
+
+/* заполнение справочника подэтапов stagedirs*/ 
 /*видео*/							
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Заявка/продумываниеконцепции', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Предложение идеи клиенту/поиск спонсоров', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Разработка сюжета, тз и предварительное планирование	', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Подписание договора и получение предоплаты/получение бюджета', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Написание литературного сценария', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Постановка производственных дэдлайнов и документации', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Создание концепт арта', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Создание режиссерского сценария и раскадровки', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Создание чертежей и проектов к декорациям, реквизиту, 3D моделей', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Освоение съемочных объектов - супервайзинг', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Создание реквизита, декораций и костюмов', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Репитиции сцен', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Съемка сцен', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Отбор и подготовка съемочного материала', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Монтаж в соответствии с режиссерским сценарием', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Композитинг', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Обработка VFX', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Первичный рендер (подготовка под фин. цк)', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Финальная цветокоррекция', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Финальный рендер', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Презентация готового продукта и работа с правками', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Сдача проекта (подписание акта о проделанной работе)', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Получение постоплаты', now(), now());
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (1,'Заявка/продумываниеконцепции', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (2,'Предложение идеи клиенту/поиск спонсоров', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (3,'Разработка сюжета, тз и предварительное планирование	', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (4,'Подписание договора и получение предоплаты/получение бюджета', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (5,'Написание литературного сценария', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (6,'Постановка производственных дэдлайнов и документации', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (7,'Создание концепт арта', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (8,'Создание режиссерского сценария и раскадровки', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (9,'Создание чертежей и проектов к декорациям, реквизиту, 3D моделей', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (10,'Освоение съемочных объектов - супервайзинг', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (11,'Создание реквизита, декораций и костюмов', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (12,'Репитиции сцен', now(), now(),1);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (13,'Съемка сцен', now(), now(),2);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (14,'Отбор и подготовка съемочного материала', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (15,'Монтаж в соответствии с режиссерским сценарием', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (16,'Композитинг', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (17,'Обработка VFX', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (18,'Первичный рендер (подготовка под фин. цк)', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (19,'Финальная цветокоррекция', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (20,'Финальный рендер', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (21,'Презентация готового продукта и работа с правками', now(), now(),4);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (22,'Сдача проекта (подписание акта о проделанной работе)', now(), now(),4);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (23,'Получение постоплаты', now(), now(),4);
 
 /*графика*/
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Моделирование 3D объектов/сцен', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Текстурирование', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Анимирование/симуляция', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Освещение', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Операторская работа/трекинг', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Работа со звуком', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Рендер пассов', now(), now());
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (24,'Моделирование 3D объектов/сцен', now(), now(),2);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (25,'Текстурирование', now(), now(),2);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (26,'Анимирование/симуляция', now(), now(),2);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (27,'Освещение', now(), now(),2);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (28,'Операторская работа/трекинг', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (29,'Работа со звуком', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (30,'Рендер пассов', now(), now(),3);
 
 /*звук*/
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Запись и создание звука в процессе съемок', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Отбор и подготовка звукового материала', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Сведение записанного звука (по готовности монтажа сцен)', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Обработка SFX (по готовности VFX)', now(), now());
-INSERT INTO `crm_db`.`stagedirs` (`title`, `createdAt`, `updatedAt`) VALUES ('Мастеринг', now(), now());
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (31,'Запись и создание звука в процессе съемок', now(), now(),2);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (32,'Отбор и подготовка звукового материала', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (33,'Сведение записанного звука (по готовности монтажа сцен)', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (34,'Обработка SFX (по готовности VFX)', now(), now(),3);
+INSERT INTO `crm_db`.`stagedirs` (`id`, `title`, `createdAt`, `updatedAt`, `AbstractStageId`) VALUES (35,'Мастеринг', now(), now(),3);
 
 /*заполнение отделов и групп(группы имеют в родителях отдел) departments*/
 INSERT INTO `crm_db`.`departments` (`id`,`title`, `createdAt`, `updatedAt`, `deletedAt`, `ParentDepartmentId`) VALUES (1,'Административный блок', now(), now(), now(), null);
@@ -107,6 +143,52 @@ INSERT INTO `crm_db`.`departments` (`id`,`title`, `createdAt`, `updatedAt`, `del
 INSERT INTO `crm_db`.`departments` (`id`,`title`, `createdAt`, `updatedAt`, `deletedAt`, `ParentDepartmentId`) VALUES (39,'Группа подготовки звукового материала', now(), now(), now(), 11);
 INSERT INTO `crm_db`.`departments` (`id`,`title`, `createdAt`, `updatedAt`, `deletedAt`, `ParentDepartmentId`) VALUES (40,'Группа мастеринга', now(), now(), now(), 11);
 INSERT INTO `crm_db`.`departments` (`id`,`title`, `createdAt`, `updatedAt`, `deletedAt`, `ParentDepartmentId`) VALUES (41,'Группа SFX', now(), now(), now(), 11);
+
+
+/*заполнение таблицы "отделы выполняющие подэтап"*/
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 2, 1);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 2, 2);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 1, 3);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 2, 3);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 2, 4);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 15, 5);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 1, 6);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 2, 6);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 3, 6);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 16, 7);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 16, 8);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 17, 8);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 22, 10);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 17, 10);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 21, 10);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 18, 11);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 19, 11);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 20, 11);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 17, 12);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 26, 12);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 23, 13);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 24, 13);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 26, 13);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 27, 13);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 34, 14);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 35, 15);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 36, 16);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 37, 17);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 38, 19);
+
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 7, 24);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 7, 25);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 7, 26);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 7, 27);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 7, 28);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 7, 29);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 7, 30);
+
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 25, 31);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 39, 32);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 40, 33);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 41, 34);
+INSERT INTO `crm_db`.`stageexecutors` (`createdAt`, `updatedAt`, `deletedAt`, `DepartmentId`, `StageDirId`) VALUES (now(), now(), now(), 40, 35);
 
 
 /*заполнение справочника должностей*/
