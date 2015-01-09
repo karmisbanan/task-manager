@@ -26,7 +26,7 @@ require('./config/express')(app, passport);
 require('./config/routes').init(app, passport, auth);
 
 //Start the app by listening on <port>
-var port = 3011;
+var port = 3011; // @HARDCODE
 app.listen(port);
 console.log('Express app started on port ' + port);
 

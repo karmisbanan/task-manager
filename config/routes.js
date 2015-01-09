@@ -9,21 +9,19 @@ exports.init = function(app, passport, auth) {
     console.log('Initializing Routes');
 
     // User Routes
-    app.get('/signin', users.signin);
-    app.get('/signup', users.signup);
-    app.get('/signout', users.signout);
-    app.get('/users/me', users.me);
+    app.get('/profile', users.profile);
 
-    // Setting up the users api
-    app.post('/users', users.create);
+    app.post('/login', users.login);
+    app.post('/logout', users.logout);
+    app.post('/register', users.register);
 
     // Setting the local strategy route
-    app.post('/users/session', passport.authenticate('local', {
-        failureRedirect: '/signin',
-        failureFlash: true
-    }), users.session);
+    // app.post('/users/session', passport.authenticate('local', {
+    //     failureRedirect: '/login',
+    //     failureFlash: true
+    // }), users.login);
 
-    // Setting the facebook oauth routes
+/*    // Setting the facebook oauth routes
     app.get('/auth/facebook', passport.authenticate('facebook', {
         scope: ['email', 'user_about_me'],
         failureRedirect: '/signin'
@@ -53,24 +51,24 @@ exports.init = function(app, passport, auth) {
 
     app.get('/auth/google/callback', passport.authenticate('google', {
         failureRedirect: '/signin'
-    }), users.authCallback);
+    }), users.authCallback);*/
 
     // Finish with setting up the userId param
-    app.param('userId', users.user);
+    // app.param('userId', users.user);
 
     // Article Routes
-    app.get('/articles', articles.all);
-    app.post('/articles', auth.requiresLogin, articles.create);
-    app.get('/articles/:articleId', articles.show);
-    app.put('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.update);
-    app.del('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy);
+    // app.get('/articles', articles.all);
+    // app.post('/articles', auth.requiresLogin, articles.create);
+    // app.get('/articles/:articleId', articles.show);
+    // app.put('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.update);
+    // app.del('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy);
 
-    // Finish with setting up the articleId param
-    // Note: the articles.article function will be called everytime then it will call the next function. 
-    app.param('articleId', articles.article);
+    // // Finish with setting up the articleId param
+    // // Note: the articles.article function will be called everytime then it will call the next function. 
+    // app.param('articleId', articles.article);
 
     // Home route
-    app.get('/', index.render);
+    // app.get('/', index.render);
 
     //тестовый путь для пробы 
     app.get('/stages',stages.allStages);

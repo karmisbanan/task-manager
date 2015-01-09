@@ -1,92 +1,169 @@
 /**
  * Module dependencies.
  */
-var db = require('../../config/sequelize');
-
-/**
- * Auth callback
- */
-exports.authCallback = function(req, res, next) {
-    res.redirect('/');
-};
-
-/**
- * Show login form
- */
-exports.signin = function(req, res) {
-    res.render('users/signin', {
-        title: 'Signin',
-        message: req.flash('error')
-    });
-};
-
-/**
- * Show sign up form
- */
-exports.signup = function(req, res) {
-    res.render('users/signup', {
-        title: 'Sign up',
-    });
-};
+var db = require( '../../config/sequelize' );
 
 /**
  * Logout
  */
-exports.signout = function(req, res) {
-    console.log('Logout: { id: ' + req.user.id + ', username: ' + req.user.username + '}');
-    req.logout();
-    res.redirect('/');
+exports.logout = function ( req, res ) {
+    if ( req.session.userId ) {
+        req.logout();
+        req.session.userId = null;
+        return res.json( {
+            'status': 'ok'
+        } );
+    }
+
+    return res.json( {
+        'status': 'error',
+        'detail': 'user_is_not_logined'
+    } );
 };
 
 /**
- * Session
+ * Login
  */
-exports.session = function(req, res) {
-    res.redirect('/');
+exports.login = function ( req, res ) {
+    if(req.session.userId) {
+        return res.json( {
+            'status': 'error',
+            'detail': 'user_already_logined'
+        } );
+    }
+    if ( !req.body.username || !req.body.password ) {
+        return res.json( {
+            'status': 'error',
+            'detail': 'user_request_not_name_or_pasword'
+        } );
+    }
+
+    var where = {
+        username: req.body.username
+    }
+    db.User.find( {
+        where: where
+    } ).success( function ( user ) {
+        if ( !user ) {
+            return res.json( {
+                'status': 'error',
+                'detail': 'user_not_found'
+            } );
+        }
+
+        var clearPassword = new Buffer( req.body.password, 'base64' ).toString( 'utf8' );
+        console.log( clearPassword );
+
+        if ( !user.authenticate( clearPassword ) ) {
+            return res.json( {
+                'status': 'error',
+                'detail': 'user_invalid_password'
+            } );
+        }
+
+        req.profile = user;
+        req.session.userId = user.id;
+        // @TODO Удалить компрометирующие поля (через delete  не сработало)
+        // delete user['hashedPassword'];
+        // delete user['salt'];
+        return res.json( {
+            'status': 'ok',
+            'detail': user
+        } );
+    } ).error( function ( err ) {
+        return res.json( {
+            'status': 'error',
+            'detail': err
+        } );
+    } );
 };
 
 /**
  * Create user
  */
-exports.create = function(req, res) {
-    var message = null;
-
-    var user = db.User.build(req.body);
-
+exports.register = function ( req, res ) {
+    var user = db.User.build( req.body );
+    // console.log( "Pass: " + req.body.password );
     user.provider = 'local';
     user.salt = user.makeSalt();
-    user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
-    console.log('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
-    
-    user.save().success(function(){
-      req.login(user, function(err){
-        if(err) return next(err);
-        res.redirect('/');
-      });
-    }).error(function(err){
-      res.render('users/signup',{
-          message: message,
-          user: user
-      });
-    });
+    var clearPassword = new Buffer( req.body.password, 'base64' ).toString( 'utf8' );
+    user.hashedPassword = user.encryptPassword( clearPassword, user.salt );
+    // console.log( "ClearPass: " + clearPassword );
+    // console.log("New Hashed: " + user.hashedPassword);
+    // console.log( 'New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }' );
+
+    var errors = user.validate();
+    if ( errors ) {
+        return res.json( {
+            'status': 'error',
+            'detail': errors
+        } )
+    }
+    user.save().success( function () {
+        req.login( user, function ( err ) {
+            if ( err ) {
+                return res.json( {
+                    'status': 'error',
+                    'detail': err
+                } );
+                return next( err );
+            }
+            req.session.userId = user.id;
+            res.json( {
+                'status': 'ok',
+                'detail': user
+            } );
+        } );
+    } ).error( function ( err ) {
+        res.json( {
+            'status': 'error',
+            'detail': err
+        } )
+    } );
 };
 
 /**
  * Send User
  */
-exports.me = function(req, res) {
-    res.jsonp(req.user || null);
+exports.profile = function ( req, res ) {
+    if ( !req.session.userId ) {
+        return res.json( {
+            'status': 'error',
+            'detail': 'user_not_auth'
+        } );
+    }
+    User.find( {
+        where: {
+            id: id
+        }
+    } ).success( function ( user ) {
+        if ( !user ) return next( new Error( 'Failed to load User ' + id ) );
+        req.profile = user;
+        res.json( {
+            'status': 'ok',
+            'detail': user
+        } );
+    } ).error( function ( err ) {
+        res.json( {
+            'status': 'error',
+            'detail': err
+        } )
+    } );
 };
 
 /**
  * Find user by id
  */
-exports.user = function(req, res, next, id) {
-    User.find({where : { id: id }}).success(function(user){
-      if (!user) return next(new Error('Failed to load User ' + id));
-      req.profile = user;
-      next();
-    }).error(function(err){
-      next(err);
-    });
-};
+// exports.user = function ( req, res, next, id ) {
+//     User.find( {
+//         where: {
+//             id: id
+//         }
+//     } ).success( function ( user ) {
+//         if ( !user ) return next( new Error( 'Failed to load User ' + id ) );
+//         req.profile = user;
+//         next();
+//     } ).error( function ( err ) {
+//         next( err );
+//     } );
+// };

@@ -1,14 +1,41 @@
-var crypto = require('crypto');
+var crypto = require( 'crypto' );
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function ( sequelize, DataTypes ) {
 
-    var User = sequelize.define('User', {
-        name: DataTypes.STRING,
-        email: DataTypes.STRING,
-        username: DataTypes.STRING,
-        hashedPassword: DataTypes.STRING,
-        provider: DataTypes.STRING,
-        salt: DataTypes.STRING,
+    var User = sequelize.define( 'User', {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+            }
+        },
+        email: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false,
+            validate: {
+                isEmail: true,
+                notEmpty: true,
+            }
+        },
+        username: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+            }
+        },
+        hashedPassword: {
+            type: DataTypes.STRING
+        },
+        provider: {
+            type: DataTypes.STRING
+        },
+        salt: {
+            type: DataTypes.STRING
+        },
         // facebookUserId: DataTypes.INTEGER,
         // twitterUserId: DataTypes.INTEGER,
         // twitterKey: DataTypes.STRING,
@@ -19,47 +46,50 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: true,
         paranoid: true,
         instanceMethods: {
-            makeSalt: function() {
-                return crypto.randomBytes(16).toString('base64');
+            makeSalt: function () {
+                return crypto.randomBytes( 16 ).toString( 'base64' );
             },
-            authenticate: function(plainText) {
-                return this.encryptPassword(plainText, this.salt) === this.hashedPassword;
+            authenticate: function ( plainText ) {
+                var hashedPassword = this.encryptPassword( plainText, this.salt );
+                console.log( 'Hashed: ' + hashedPassword );
+                console.log( 'user hashd paswrd: ' + this.hashedPassword );
+                return this.encryptPassword( plainText, this.salt ) === this.hashedPassword;
             },
-            encryptPassword: function(password, salt) {
-                if (!password || !salt) return '';
-                salt = new Buffer(salt, 'base64');
-                return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+            encryptPassword: function ( password, salt ) {
+                if ( !password || !salt ) return '';
+                salt = new Buffer( salt, 'base64' );
+                return crypto.pbkdf2Sync( password, salt, 10000, 64 ).toString( 'base64' );
             }
         },
-        associate: function(models) {
-            User.hasMany(models.Project, {
-                foreignKey: 'ProjectCuratorId',               
+        associate: function ( models ) {
+            User.hasMany( models.Project, {
+                foreignKey: 'ProjectCuratorId',
                 foreignKeyConstraint: true
-            });
+            } );
 
-            User.hasMany(models.Project, {
-                foreignKey: 'ProjectClientId',              
+            User.hasMany( models.Project, {
+                foreignKey: 'ProjectClientId',
                 foreignKeyConstraint: true
-            });
+            } );
 
-            User.hasMany(models.Task, {
-                foreignKey: 'TaskExecutorId',              
+            User.hasMany( models.Task, {
+                foreignKey: 'TaskExecutorId',
                 foreignKeyConstraint: true
-            });
+            } );
 
-            User.hasMany(models.Post, {
-                            
+            User.hasMany( models.Post, {
+
                 foreignKeyConstraint: true
-            });
+            } );
 
-            User.hasMany(models.Stage, {
-                foreignKey: 'StageCuratorId',              
+            User.hasMany( models.Stage, {
+                foreignKey: 'StageCuratorId',
                 foreignKeyConstraint: true
-            });
+            } );
 
-            User.belongsTo(models.RoleDir, {
-                foreignKeyConstraint: true  
-            });
+            User.belongsTo( models.RoleDir, {
+                foreignKeyConstraint: true
+            } );
 
 
 
@@ -94,7 +124,7 @@ module.exports = function(sequelize, DataTypes) {
                 foreignKeyConstraint: true
             });*/
         }
-    });
+    } );
 
     return User;
 };

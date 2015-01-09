@@ -44,7 +44,7 @@ passport.use(new LocalStrategy({
   }
 ));
 
-//    Use twitter strategy
+/*   Use twitter strategy
 passport.use(new TwitterStrategy({
         consumerKey: config.twitter.clientID,
         consumerSecret: config.twitter.clientSecret,
@@ -75,7 +75,7 @@ passport.use(new TwitterStrategy({
 ));
 
 
-// Use facebook strategy
+Use facebook strategy
 passport.use(new FacebookStrategy({
         clientID: config.facebook.clientID,
         clientSecret: config.facebook.clientSecret,
@@ -105,7 +105,7 @@ passport.use(new FacebookStrategy({
     }
 ));
 
-//Use google strategy
+Use google strategy
 passport.use(new GoogleStrategy({
     returnURL: config.google.callbackURL,
     realm: config.google.realm
@@ -133,7 +133,7 @@ passport.use(new GoogleStrategy({
         done(err, null);
     });
   }
-));
+));*/
 
 module.exports = passport;
 
