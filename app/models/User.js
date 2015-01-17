@@ -68,6 +68,7 @@ module.exports = function ( sequelize, DataTypes ) {
             } );
 
             User.hasMany( models.Project, {
+                
                 foreignKey: 'ProjectClientId',
                 foreignKeyConstraint: true
             } );

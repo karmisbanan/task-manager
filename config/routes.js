@@ -2,18 +2,26 @@
 var users       = require('../app/controllers/users');
 var articles    = require('../app/controllers/articles');
 var index       = require('../app/controllers/index');
-var stages = require('../app/controllers/stages');
+var stages      = require('../app/controllers/stages');
+var projects      = require('../app/controllers/projects');
 
 exports.init = function(app, passport, auth) {
 
     console.log('Initializing Routes');
 
     // User Routes
-    app.get('/profile', users.profile);
+    app.get('/profile', auth.userSession.hasAuthorization, users.profile);
+    app.get('/profile/:username', auth.userSession.hasAuthorization, users.profile);
 
     app.post('/login', users.login);
     app.post('/logout', users.logout);
     app.post('/register', users.register);
+
+    app.get('/projects', auth.userSession.hasAuthorization, projects.getProjects);
+    app.get('/projects/:projectid', auth.userSession.hasAuthorization, projects.getOneProject);
+    app.post('/projects', auth.userSession.hasAuthorization, projects.createProject);
+    
+    app.get('/stages',stages.allStages);
 
     // Setting the local strategy route
     // app.post('/users/session', passport.authenticate('local', {
@@ -71,6 +79,7 @@ exports.init = function(app, passport, auth) {
     // app.get('/', index.render);
 
     //тестовый путь для пробы 
-    app.get('/stages',stages.allStages);
+    
 
 };
+

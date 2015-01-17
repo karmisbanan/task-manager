@@ -3,6 +3,7 @@
  */
 var db = require( '../../config/sequelize' );
 
+
 /**
  * Logout
  */
@@ -126,18 +127,42 @@ exports.register = function ( req, res ) {
  * Send User
  */
 exports.profile = function ( req, res ) {
-    if ( !req.session.userId ) {
+    /*if ( !req.session.userId ) {
         return res.json( {
             'status': 'error',
             'detail': 'user_not_auth'
         } );
-    }
-    User.find( {
-        where: {
-            id: id
+    }else{
+        req.session.lastAccess = new Date().getTime();
+    }*/
+
+    var searchParams = {};
+    
+    if(req.param('username')){
+        searchParams = {
+            where: {
+                username: req.param('username')
+            }
         }
-    } ).success( function ( user ) {
-        if ( !user ) return next( new Error( 'Failed to load User ' + id ) );
+    }else{
+        searchParams = {
+            where: {
+                id: req.session.userId
+            }
+        }
+    }
+    
+    //var viewUser = (req.param('username')) ? (req.param('username')) : 
+    
+    db.User.find(searchParams).success( function ( user ) {
+        //нужна обработка ошибок
+        // + (id) ? (id) : ( (username) )
+        //if ( !user ) return next( new Error( 'Failed to load User ' ) );
+        if ( !user ) {
+            console.log("Failed to load User");
+            return  new Error( 'Failed to load User ' ) ;
+        }
+
         req.profile = user;
         res.json( {
             'status': 'ok',
@@ -167,3 +192,4 @@ exports.profile = function ( req, res ) {
 //         next( err );
 //     } );
 // };
+

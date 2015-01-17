@@ -43,6 +43,22 @@ angular
               templateUrl: 'views/logout.html',
               controller: 'LogoutCtrl'
             })
+            .when('/profile', {
+              templateUrl: 'views/profile.html',
+              controller: 'ProfileCtrl'
+            })
+            .when('/profile/:username', {
+              templateUrl: 'views/profile.html',
+              controller: 'ProfileCtrl'
+            })
+            .when('/projects', {
+              templateUrl: 'views/projects.html',
+              controller: 'ProjectsCtrl'
+            })
+            .when('/projects/:projectid', {
+              templateUrl: 'views/projects.html',
+              controller: 'ProjectsCtrl'
+            })
             .otherwise( {
                 redirectTo: '/login'
             } );
