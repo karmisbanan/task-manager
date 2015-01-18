@@ -15,11 +15,17 @@ module.exports = function(sequelize, DataTypes) {
         },
         dateStart: {
             type: DataTypes.DATE,
-            comment: "Дата начала проекта"
+            comment: "Дата начала проекта",
+            set: function(v){
+                this.setDataValue('dateStart',Date.getDateObjFromStrNumObj(v));
+            }
         },
         dateEnd: {
             type: DataTypes.DATE,
-            comment: "Дата окончания проекта"
+            comment: "Дата окончания проекта",
+            set: function(v){
+                this.setDataValue('dateEnd',Date.getDateObjFromStrNumObj(v));
+            }
         },
     }, {
         timestamps: true,
@@ -48,6 +54,7 @@ module.exports = function(sequelize, DataTypes) {
             });
 
             Project.belongsTo(models.AbstractStage, {
+                as:'CurrentProgressAbsSt',
                 foreignKey:'CurrentProgressAbsStId',
                 foreignKeyConstraint: true
             });

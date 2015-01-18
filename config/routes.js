@@ -21,7 +21,7 @@ exports.init = function(app, passport, auth) {
     app.get('/projects/:projectid', auth.userSession.hasAuthorization, projects.getOneProject);
     app.post('/projects', auth.userSession.hasAuthorization, projects.createProject);
     
-    app.get('/stages',stages.allStages);
+    app.get('/stages',stages.getStages);
 
     // Setting the local strategy route
     // app.post('/users/session', passport.authenticate('local', {
