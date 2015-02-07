@@ -44,7 +44,7 @@ module.exports = function(app, passport) {
         app.use(express.methodOverride());
 
         //express/mongo session storage
-        app.use(express.session({   secret: '$uper$ecret$e$$ionKey', 
+        app.use(express.session({   secret: '$%Njq88cw7yey23^&*(sdiojqwe89y37e12', 
                                     cookie: { maxAge: 60000 },
                                     rolling: true,
                                     resave: true, 
@@ -59,8 +59,6 @@ module.exports = function(app, passport) {
         //use passport session
         app.use(passport.initialize());
         app.use(passport.session());
-
-        app.use(express.bodyParser());
 
         //routes should be at the last
         app.use(app.router);
