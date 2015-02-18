@@ -38,7 +38,11 @@ Object.keys(db).forEach(function(modelName) {
 /*
 *синхронизация базы данных
 */
+<<<<<<< HEAD
 module.exports.synchronizeDataBase  = function(){
+=======
+// exports.synchronizeDataBase  = function(){
+>>>>>>> origin/master
   // Synchronizing any model changes with database. 
   // WARNING: this will DROP your database everytime you re-run your application
   sequelize
@@ -47,7 +51,7 @@ module.exports.synchronizeDataBase  = function(){
       if(err) console.log("An error occured %j",err);
       else console.log("Database dropped and synchronized");
   });
-}
+// }
 
  
 // assign the sequelize variables to the db object and returning the db. 
