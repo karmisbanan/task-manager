@@ -38,7 +38,7 @@ Object.keys(db).forEach(function(modelName) {
 /*
 *синхронизация базы данных
 */
-exports.synchronizeDataBase  = function(){
+module.exports.synchronizeDataBase  = function(){
   // Synchronizing any model changes with database. 
   // WARNING: this will DROP your database everytime you re-run your application
   sequelize

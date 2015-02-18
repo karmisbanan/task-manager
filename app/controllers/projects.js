@@ -2,7 +2,11 @@
  * Module dependencies.
  */
 var db = require( '../../config/sequelize' );
-
+var includeArr = [  {model: db.User, as: 'ProjectCurator'}
+                    ,{ model: db.User, as: 'ProjectClient'}
+                    ,{ model: db.Stage, as: 'ProjectStages' }
+                    ,{ model: db.Post, as: 'ProjectPosts' }
+                ];
 
 /**
  * get projects
@@ -18,18 +22,16 @@ exports.getProjects = function ( req, res ) {
     }*/
     
     //{ model: db.Stage },
-    db.Project.findAll({
-        include: [  {model: db.User, as: 'ProjectCurator'}
-                    ,{ model: db.User, as: 'ProjectClient'}
-                    ,{ model: db.Stage, as: 'ProjectStages' }
-                    ,{ model: db.Post, as: 'ProjectPosts' }
-                ]
-    }).success( function ( projects ) {
+    var searchParams = {};
+    searchParams.where = req.query;
+    searchParams.include = includeArr;
+
+    db.Project.findAll(searchParams).success( function ( projects ) {
         
         //надо доделать обработку ошибок!!!
         if ( !projects ) {
-            console.log("Failed to load projects");
-            return;
+            console.log("0 rows was returned");
+            //return;
         }
 
         
@@ -62,31 +64,26 @@ exports.getOneProject = function ( req, res ) {
     var searchParams = {};
     
     if(req.param('projectid')){
-        searchParams = {
-            where: {
-                id: req.param('projectid')
-            }
+        searchParams.where = {
+                id: req.param('projectid')           
         }
     }
 
-    searchParams.include = [    {model: db.User, as: 'ProjectCurator'}
-                                ,{ model: db.User, as: 'ProjectClient'}
-                                ,{ model: db.Stage, as: 'ProjectStages' }
-                                ,{ model: db.Post, as: 'ProjectPosts' }
-                            ];
+    searchParams.include = includeArr;
 
     //{ model: db.Stage },
     db.Project.find(searchParams).success( function ( project ) {
         
         //надо доделать обработку ошибок!!!
         if ( !project) {
-            res.json( {
+            console.log("0 rows was returned");
+            /*res.json( {
                 'status': 'ok',
                 'detail': 'Failed to load this project'
-            } );
+            } );*/
             //res.status(200).send('Failed to load this project');
             //console.log("Failed to load this project");
-            return;
+            //return;
         }
 
         

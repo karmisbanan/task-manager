@@ -3,7 +3,8 @@ var users       = require('../app/controllers/users');
 var articles    = require('../app/controllers/articles');
 var index       = require('../app/controllers/index');
 var stages      = require('../app/controllers/stages');
-var projects      = require('../app/controllers/projects');
+var tasks       = require('../app/controllers/tasks');
+var projects    = require('../app/controllers/projects');
 
 exports.init = function(app, passport, auth) {
 
@@ -22,6 +23,16 @@ exports.init = function(app, passport, auth) {
     app.post('/projects', auth.userSession.hasAuthorization, projects.createProject);
     
     app.get('/stages',stages.getStages);
+    app.get('/projects/:projectid/stages',stages.getProjectStages);
+    app.get('/projects/:projectid/stages/:stageid',stages.getOneProjectStage);
+    app.post('/projects/:projectid/stages',stages.createProjectStage);
+
+    app.get('/tasks',tasks.getTasks);
+    app.get('/projects/:projectid/stages/:stageid/tasks',tasks.getStageTasks);
+    app.get('/projects/:projectid/stages/:stageid/tasks/:taskid',tasks.getOneStageTask);
+    app.post('/projects/:projectid/stages/:stageid/tasks',tasks.createStageTask);
+    app.post('/tasks',tasks.createTask);
+
 
     // Setting the local strategy route
     // app.post('/users/session', passport.authenticate('local', {

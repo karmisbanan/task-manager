@@ -3,21 +3,29 @@ module.exports = function(sequelize, DataTypes) {
     var Stage = sequelize.define('Stage', {
         dateStart: {
             type: DataTypes.DATE,
-            comment: "Дата начала подэтапа проекта"
+            comment: "Дата начала подэтапа проекта",
+            set: function(v){
+                this.setDataValue('dateStart',Date.getDateObjFromStrNumObj(v));
+            }
         },
         dateEnd: {
             type: DataTypes.DATE,
-            comment: "Дата окончания подэтапа проекта"
+            comment: "Дата окончания подэтапа проекта",
+            set: function(v){
+                this.setDataValue('dateEnd',Date.getDateObjFromStrNumObj(v));
+            }
         },
     }, {
         associate: function(models) {
             Stage.hasMany(models.Task,{
+                as:'StageTasks',
+                foreignKey: 'StageId',
                 foreignKeyConstraint: true
             });
 
             //перенести  в stageDir если есть фиксированный регламент выполнения этапов
             Stage.hasMany(models.DepStage, {
-                comment: "Для этой задачи",
+                comment: "Для этого этапа",
                 as:'StageDepForStages',
                 foreignKey: 'StageId',
                 foreignKeyConstraint: true
@@ -33,16 +41,19 @@ module.exports = function(sequelize, DataTypes) {
 
             Stage.belongsTo(models.Project,{
                 as:'Project',
+                foreignKey: 'ProjectId',
                 foreignKeyConstraint: true
             });
 
             Stage.belongsTo(models.StageDir,{
                 as:'StageDir',
+                foreignKey: 'StageDirId',
                 foreignKeyConstraint: true
             });
 
             Stage.belongsTo(models.StatusDir, {
                 as:'StatusDir',
+                foreignKey: 'StatusDirId',
                 foreignKeyConstraint: true 
             });
 
